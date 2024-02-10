@@ -58,6 +58,9 @@ class GUI:
         self.stop_button = tk.Button(self.root, text="Stop Recording", command=self.stop_recording, state=tk.DISABLED)
         self.stop_button.pack(pady=5)
 
+        self.text_widget = tk.Text(self.root, wrap=tk.WORD, height=10, width=50)
+        self.text_widget.pack(pady=10)
+
     def start_recording(self):
         self.start_button.config(state=tk.DISABLED)
         self.stop_button.config(state=tk.NORMAL)
@@ -75,7 +78,8 @@ class GUI:
 
         print("Audio Blobs:")
         for idx, blob in enumerate(audio_blobs):
-            print(f"Blob {idx + 1}: {blob}")
+            self.text_widget.insert(tk.END, f"Blob {idx + 1}: {blob}\n")
+            self.text_widget.see(tk.END)  # Scroll to the end of the text widget
 
     def transcribe_audio(self):
         recognizer = sr.Recognizer()
